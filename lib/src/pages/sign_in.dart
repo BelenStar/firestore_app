@@ -37,7 +37,7 @@ class _SignInPageState extends State<SignInPage> {
                 children: [
                   const SizedBox(height: 10),
                   const Icon(
-                    Icons.account_box_rounded,
+                    Icons.menu_book_sharp,
                     size: 120,
                     color: Color(0xffBABFD9),
                   ),
