@@ -108,7 +108,7 @@ class _SignInPageState extends State<SignInPage> {
                       backgroundColor:
                           MaterialStateProperty.all(const Color(0xffBABFD9)),
                     ),
-                    child: Text('Sign in',
+                    child: Text('Sign In',
                         style: GoogleFonts.bitter(
                             textStyle:
                                 const TextStyle(color: Color(0xff403E40)))),
