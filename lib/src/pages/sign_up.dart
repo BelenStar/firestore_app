@@ -15,8 +15,10 @@ class _SignUpPageState extends State<SignUpPage> {
   final confirmPassword = TextEditingController();
 
   Future signUp() async {
-    await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: email.text, password: password.text);
+    await FirebaseAuth.instance
+        .createUserWithEmailAndPassword(
+            email: email.text, password: password.text)
+        .whenComplete(() => Navigator.of(context).pop());
   }
 
   @override
