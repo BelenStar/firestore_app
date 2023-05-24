@@ -25,7 +25,15 @@ class _HomePageState extends State<HomePage> {
                       FirebaseAuth.instance.signOut();
                     })
                   },
-              child: const Text('Sign out'))
+              child: const Text('Sign out')),
+          NavigationBar(destinations: const [
+            NavigationDestination(
+                icon: Icon(Icons.home_outlined), label: 'Home'),
+            NavigationDestination(
+                icon: Icon(Icons.bookmark_add_outlined), label: 'Library'),
+            NavigationDestination(
+                icon: Icon(Icons.person_outline), label: 'Profile'),
+          ])
         ],
       )),
     );

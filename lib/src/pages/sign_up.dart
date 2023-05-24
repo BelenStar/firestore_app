@@ -29,7 +29,7 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   void passwordValidation() {
-    if (password == confirmPassword) {
+    if (password.text == confirmPassword.text) {
       signUp();
     } else {
       showDialog(
@@ -46,8 +46,8 @@ class _SignUpPageState extends State<SignUpPage> {
           );
         },
       );
-      //password.clear();
-      //confirmPassword.clear();
+      password.clear();
+      confirmPassword.clear();
     }
   }
 
