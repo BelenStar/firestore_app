@@ -15,7 +15,8 @@ class _SignInPageState extends State<SignInPage> {
 
   Future signIn() async {
     await FirebaseAuth.instance
-        .signInWithEmailAndPassword(email: email.text, password: password.text);
+        .signInWithEmailAndPassword(email: email.text, password: password.text)
+        .whenComplete(() => Navigator.of(context).pop());
   }
 
   @override
