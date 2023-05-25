@@ -1,6 +1,8 @@
+import 'package:firestone_app/src/auth/auth.dart';
 import 'package:firestone_app/src/pages/sign_up.dart';
 import 'package:flutter/material.dart';
 
+import 'src/pages/home.dart';
 import 'src/pages/sign_in.dart';
 
 class MyApp extends StatelessWidget {
@@ -10,10 +12,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const SignInPage(),
+      home: const AuthPage(),
       routes: <String, WidgetBuilder>{
         '/signIn': (context) => const SignInPage(),
         '/signUp': (context) => const SignUpPage(),
+        '/home': (context) => const HomePage(),
       },
     );
   }

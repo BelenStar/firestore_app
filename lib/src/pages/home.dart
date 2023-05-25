@@ -13,10 +13,27 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    int currentPageIndex = 0;
     return Scaffold(
+      bottomNavigationBar: NavigationBar(
+        destinations: const [
+          NavigationDestination(icon: Icon(Icons.home_outlined), label: 'Home'),
+          NavigationDestination(
+              icon: Icon(Icons.bookmark_add_outlined), label: 'Library'),
+          NavigationDestination(
+              icon: Icon(Icons.person_outline), label: 'Profile'),
+        ],
+        selectedIndex: currentPageIndex,
+        onDestinationSelected: (int index) {
+          setState(() {
+            currentPageIndex = index;
+          });
+        },
+      ),
+      appBar: AppBar(),
       body: Center(
           child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text('Welcome back ${user?.email}'),
           ElevatedButton(
@@ -26,14 +43,6 @@ class _HomePageState extends State<HomePage> {
                     })
                   },
               child: const Text('Sign out')),
-          NavigationBar(destinations: const [
-            NavigationDestination(
-                icon: Icon(Icons.home_outlined), label: 'Home'),
-            NavigationDestination(
-                icon: Icon(Icons.bookmark_add_outlined), label: 'Library'),
-            NavigationDestination(
-                icon: Icon(Icons.person_outline), label: 'Profile'),
-          ])
         ],
       )),
     );
