@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firestone_app/src/pages/main_page.dart';
 import 'package:flutter/material.dart';
-
-import '../pages/home.dart';
 import 'logs.dart';
 
 class AuthPage extends StatelessWidget {
@@ -14,7 +13,8 @@ class AuthPage extends StatelessWidget {
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            return const HomePage();
+            //return const HomePage();
+            return const MainPage();
           } else {
             return const LogsPage();
           }
