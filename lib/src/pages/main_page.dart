@@ -9,31 +9,31 @@ class MainPage extends StatefulWidget {
 
 class _MainPage extends State<MainPage> {
   int currentPageIndex = 0;
+  final pages = [
+    Center(child: Text('hi')),
+    Center(child: Text('lalal')),
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: NavigationBar(
-        destinations: const [
-          NavigationDestination(icon: Icon(Icons.home_outlined), label: 'Home'),
-          NavigationDestination(
-              icon: Icon(Icons.bookmark_add_outlined), label: 'Library'),
-          NavigationDestination(
-              icon: Icon(Icons.person_outline), label: 'Profile'),
-        ],
-        selectedIndex: currentPageIndex,
-        onDestinationSelected: (int index) {
-          setState(() {
-            currentPageIndex = index;
-          });
-        },
-      ),
-      appBar: AppBar(),
-      body: Center(
-          child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [Text('HII')],
-      )),
-    );
+        bottomNavigationBar: NavigationBar(
+          destinations: const [
+            NavigationDestination(
+                icon: Icon(Icons.home_outlined), label: 'Home'),
+            NavigationDestination(
+                icon: Icon(Icons.bookmark_add_outlined), label: 'Library'),
+            NavigationDestination(
+                icon: Icon(Icons.person_outline), label: 'Profile'),
+          ],
+          selectedIndex: currentPageIndex,
+          onDestinationSelected: (int index) {
+            setState(() {
+              currentPageIndex = index;
+            });
+          },
+        ),
+        appBar: AppBar(),
+        body: pages[currentPageIndex]);
   }
 }
