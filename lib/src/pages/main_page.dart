@@ -1,3 +1,5 @@
+import 'package:firestone_app/src/pages/home.dart';
+import 'package:firestone_app/src/pages/library.dart';
 import 'package:flutter/material.dart';
 
 class MainPage extends StatefulWidget {
@@ -9,9 +11,9 @@ class MainPage extends StatefulWidget {
 
 class _MainPage extends State<MainPage> {
   int currentPageIndex = 0;
-  final pages = [
-    Center(child: Text('hi')),
-    Center(child: Text('lalal')),
+  final List<Widget> _pages = [
+    const HomePage(),
+    const LibraryPage(),
   ];
 
   @override
@@ -34,6 +36,6 @@ class _MainPage extends State<MainPage> {
           },
         ),
         appBar: AppBar(),
-        body: pages[currentPageIndex]);
+        body: _pages[currentPageIndex]);
   }
 }
