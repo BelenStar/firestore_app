@@ -12,8 +12,8 @@ class _LibraryPageState extends State<LibraryPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('My Library'),
-        leading: Icon(Icons.auto_stories_rounded),
+        title: const Text('My Library'),
+        leading: const Icon(Icons.auto_stories_rounded),
         actions: [
           IconButton(
               onPressed: () => {
@@ -21,11 +21,11 @@ class _LibraryPageState extends State<LibraryPage> {
                       Navigator.pushNamed(context, '/addBook');
                     })
                   },
-              icon: Icon(Icons.add_box_rounded))
+              icon: const Icon(Icons.add_box_rounded))
         ],
       ),
-      backgroundColor: Color(0xff403E40),
-      body: Text('Building'),
+      backgroundColor: const Color(0xff403E40),
+      body: const Text('Building'),
     );
   }
 }
