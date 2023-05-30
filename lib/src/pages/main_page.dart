@@ -35,7 +35,6 @@ class _MainPage extends State<MainPage> {
             });
           },
         ),
-        appBar: AppBar(),
         body: _pages[currentPageIndex]);
   }
 }
