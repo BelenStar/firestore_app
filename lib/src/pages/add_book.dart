@@ -34,7 +34,8 @@ class _AddBookPageState extends State<AddBookPage> {
             Icons.book_rounded,
             //Icons.menu_book_sharp,
             size: 100,
-            color: Color(0xffBABFD9),
+            //color: Color(0xffBABFD9),
+            color: Color(0xff8F92A6),
           ),
           const SizedBox(height: 10),
           Center(
