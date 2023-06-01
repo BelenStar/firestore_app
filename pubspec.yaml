@@ -35,6 +35,7 @@ dependencies:
   flutter:
     sdk: flutter
   google_fonts: ^4.0.4
+  provide: ^1.0.2
   provider: ^6.0.5
 
 dev_dependencies:
