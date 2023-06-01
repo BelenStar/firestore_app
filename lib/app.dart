@@ -1,7 +1,9 @@
 import 'package:firestone_app/src/auth/auth.dart';
 import 'package:firestone_app/src/pages/sign_up.dart';
+import 'package:firestone_app/src/providers/book_provider.dart';
 import 'package:flutter/material.dart';
-
+import 'package:provider/provider.dart';
+import 'src/pages/add_book.dart';
 import 'src/pages/home.dart';
 import 'src/pages/library.dart';
 import 'src/pages/main_page.dart';
@@ -12,16 +14,21 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: const AuthPage(),
-      routes: <String, WidgetBuilder>{
-        '/signIn': (context) => const SignInPage(),
-        '/signUp': (context) => const SignUpPage(),
-        '/home': (context) => const HomePage(),
-        '/main': (context) => const MainPage(),
-        '/library': (context) => const LibraryPage(),
-      },
-    );
+    return MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => LibraryProvider()),
+        ],
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          home: const AuthPage(),
+          routes: <String, WidgetBuilder>{
+            '/signIn': (context) => const SignInPage(),
+            '/signUp': (context) => const SignUpPage(),
+            '/home': (context) => const HomePage(),
+            '/main': (context) => const MainPage(),
+            '/library': (context) => const LibraryPage(),
+            '/addBook': (context) => const AddBookPage(),
+          },
+        ));
   }
 }

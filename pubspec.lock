@@ -344,6 +344,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.2.4"
+  provide:
+    dependency: "direct main"
+    description:
+      name: provide
+      sha256: b2f6c9b3f67f44a57f3dfb646c376e06dead447d9ccc5af59daa30a813bdbb5b
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.2"
   provider:
     dependency: "direct main"
     description:
@@ -438,5 +446,5 @@ packages:
     source: hosted
     version: "1.0.0"
 sdks:
-  dart: ">=2.19.0 <4.0.0"
+  dart: ">=2.19.0 <3.0.0"
   flutter: ">=3.3.0"
