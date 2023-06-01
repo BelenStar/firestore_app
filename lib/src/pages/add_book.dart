@@ -1,5 +1,8 @@
+import 'package:firestone_app/src/models/library_item.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:firestone_app/src/providers/book_provider.dart';
+import 'package:provider/provider.dart';
 
 class AddBookPage extends StatefulWidget {
   const AddBookPage({super.key});
@@ -9,14 +12,14 @@ class AddBookPage extends StatefulWidget {
 }
 
 class _AddBookPageState extends State<AddBookPage> {
-  final name = TextEditingController();
-  final genre = TextEditingController();
-  final rating = TextEditingController();
-
-  Future addBook() async {}
+  final nameController = TextEditingController();
+  final genreController = TextEditingController();
+  final ratingController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    final bookProvider = Provider.of<LibraryProvider>(context);
+
     return Scaffold(
       backgroundColor: const Color(0xff403E40),
       appBar: AppBar(
@@ -50,7 +53,7 @@ class _AddBookPageState extends State<AddBookPage> {
             height: 10,
           ),
           TextField(
-            controller: name,
+            controller: nameController,
             keyboardType: TextInputType.name,
             decoration: InputDecoration(
               label: const Text('Name'),
@@ -65,7 +68,7 @@ class _AddBookPageState extends State<AddBookPage> {
           ),
           const SizedBox(height: 10),
           TextField(
-              controller: genre,
+              controller: genreController,
               keyboardType: TextInputType.text,
               decoration: InputDecoration(
                 label: const Text('Genre(s)'),
@@ -79,7 +82,7 @@ class _AddBookPageState extends State<AddBookPage> {
               )),
           const SizedBox(height: 10),
           TextField(
-              controller: rating,
+              controller: ratingController,
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
                 label: const Text('Rating'),
@@ -98,13 +101,13 @@ class _AddBookPageState extends State<AddBookPage> {
           ),
           ElevatedButton(
               onPressed: () {
-                //CREATE BOOK MODEL
-                /* final book_name = name.text;
-                final book_genre = genre.text;
-                final book_rating = rating.text;
+                final book = Book(
+                    name: nameController.text,
+                    genre: genreController.text,
+                    rating: double.parse(ratingController.text));
 
-                addBook(
-                    name: book_name, rating: book_rating, genre: book_genre); */
+                bookProvider.createBook(book);
+                Navigator.of(context).pop();
               },
               style: ButtonStyle(
                 backgroundColor:
