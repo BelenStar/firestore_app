@@ -1,5 +1,9 @@
+import 'package:firestone_app/src/models/library_item.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+
+import '../providers/book_provider.dart';
 
 class LibraryPage extends StatefulWidget {
   const LibraryPage({super.key});
@@ -11,6 +15,8 @@ class LibraryPage extends StatefulWidget {
 class _LibraryPageState extends State<LibraryPage> {
   @override
   Widget build(BuildContext context) {
+    final bookProvider = Provider.of<LibraryProvider>(context);
+
     return Scaffold(
       backgroundColor: const Color(0xff403E40),
       appBar: AppBar(
@@ -40,28 +46,38 @@ class _LibraryPageState extends State<LibraryPage> {
               Container(
                 padding: const EdgeInsets.only(top: 10),
                 height: MediaQuery.of(context).size.height * 0.767,
-                child: ListView.builder(
-                  itemCount: 2,
-                  itemBuilder: (context, int index) {
-                    return Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 5),
-                        child: Card(
-                            elevation: 15,
-                            shadowColor: Colors.black,
-                            child: ListTile(
-                                leading: const Icon(
-                                  Icons.auto_stories_rounded,
-                                  size: 40,
-                                ),
-                                title: const Text('Zookeeper'),
-                                trailing: const Text('3/5'),
-                                subtitle: const Text('Drama'),
-                                shape: RoundedRectangleBorder(
-                                    borderRadius:
-                                        BorderRadius.circular(15.5)))));
-                  },
-                ),
+                child: StreamBuilder<List<Book>>(
+                    stream: bookProvider.getBooks(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return ListView.builder(
+                          itemCount: snapshot.data!.length,
+                          itemBuilder: (context, int index) {
+                            return Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 10, vertical: 5),
+                                child: Card(
+                                    elevation: 15,
+                                    shadowColor: Colors.black,
+                                    child: ListTile(
+                                        leading: const Icon(
+                                          Icons.auto_stories_rounded,
+                                          size: 40,
+                                        ),
+                                        title: Text(snapshot.data![index].name),
+                                        trailing: Text(
+                                            '★ ${snapshot.data![index].rating}/5'),
+                                        subtitle:
+                                            Text(snapshot.data![index].genre),
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(15.5)))));
+                          },
+                        );
+                      } else {
+                        return const Center(child: CircularProgressIndicator());
+                      }
+                    }),
               )
             ],
           ),
