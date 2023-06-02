@@ -23,7 +23,12 @@ class _AddBookPageState extends State<AddBookPage> {
     return Scaffold(
       backgroundColor: const Color(0xff403E40),
       appBar: AppBar(
-        title: const Text('New Book'),
+        title: Text(
+          'New Book',
+          style: GoogleFonts.bitter(
+              textStyle:
+                  const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+        ),
         backgroundColor: const Color(0xffBABFD9),
       ),
       body: Center(
