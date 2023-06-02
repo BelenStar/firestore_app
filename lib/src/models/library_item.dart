@@ -5,13 +5,13 @@ class Book {
 
   Book({required this.name, required this.genre, required this.rating});
 
-  /* factory Book.fromJson(Map<String, dynamic> json) {
+  factory Book.fromJson(Map<String, dynamic> json) {
     return Book(
       name: json['name'],
       genre: json['genre'],
       rating: json['rating'],
     );
-  } */
+  }
   Map<String, dynamic> toJson() =>
       {'name': name, 'genre': genre, 'rating': rating};
 }
