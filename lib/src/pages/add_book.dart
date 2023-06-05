@@ -70,43 +70,49 @@ class _AddBookPageState extends State<AddBookPage> {
                   borderRadius: BorderRadius.all(Radius.circular(15)),
                   borderSide: BorderSide(color: Color(0xffE4EAF2))),
             ),
+            style: GoogleFonts.bitter(color: Colors.white),
           ),
           const SizedBox(height: 10),
           TextField(
-              controller: genreController,
-              keyboardType: TextInputType.text,
-              decoration: InputDecoration(
-                label: const Text('Genre(s)'),
-                labelStyle: GoogleFonts.bitter(color: const Color(0xffE4EAF2)),
-                enabledBorder: const OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(15)),
-                    borderSide: BorderSide(color: Color(0xff262526))),
-                focusedBorder: const OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(15)),
-                    borderSide: BorderSide(color: Color(0xffE4EAF2))),
-              )),
+            controller: genreController,
+            keyboardType: TextInputType.text,
+            decoration: InputDecoration(
+              label: const Text('Genre(s)'),
+              labelStyle: GoogleFonts.bitter(color: const Color(0xffE4EAF2)),
+              enabledBorder: const OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(15)),
+                  borderSide: BorderSide(color: Color(0xff262526))),
+              focusedBorder: const OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(15)),
+                  borderSide: BorderSide(color: Color(0xffE4EAF2))),
+            ),
+            style: GoogleFonts.bitter(color: Colors.white),
+          ),
           const SizedBox(height: 10),
           TextField(
-              controller: ratingController,
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(
-                label: const Text('Rating'),
-                hintText: '1-5',
-                hintStyle: GoogleFonts.bitter(color: const Color(0xffE4EAF2)),
-                labelStyle: GoogleFonts.bitter(color: const Color(0xffE4EAF2)),
-                enabledBorder: const OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(15)),
-                    borderSide: BorderSide(color: Color(0xff262526))),
-                focusedBorder: const OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(15)),
-                    borderSide: BorderSide(color: Color(0xffE4EAF2))),
-              )),
+            controller: ratingController,
+            keyboardType: TextInputType.number,
+            decoration: InputDecoration(
+              label: const Text('Rating'),
+              hintText: '1-5',
+              hintStyle: GoogleFonts.bitter(color: const Color(0xffE4EAF2)),
+              labelStyle: GoogleFonts.bitter(color: const Color(0xffE4EAF2)),
+              enabledBorder: const OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(15)),
+                  borderSide: BorderSide(color: Color(0xff262526))),
+              focusedBorder: const OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(15)),
+                  borderSide: BorderSide(color: Color(0xffE4EAF2))),
+            ),
+            style: GoogleFonts.bitter(color: Colors.white),
+          ),
           const SizedBox(
             height: 10,
           ),
           ElevatedButton(
               onPressed: () {
                 final book = Book(
+                    user: bookProvider.user,
                     name: nameController.text,
                     genre: genreController.text,
                     rating: double.parse(ratingController.text));
