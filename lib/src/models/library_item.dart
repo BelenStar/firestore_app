@@ -1,11 +1,13 @@
 class Book {
+  final String? id;
   final String name;
   final String genre;
   final double rating;
   final String? user;
 
   Book(
-      {required this.user,
+      {this.id,
+      required this.user,
       required this.name,
       required this.genre,
       required this.rating});
