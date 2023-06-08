@@ -13,6 +13,37 @@ class LibraryPage extends StatefulWidget {
 }
 
 class _LibraryPageState extends State<LibraryPage> {
+  _shopUpdateDeleteOptions(Book book) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+              title: Text('Actions',
+                  style: GoogleFonts.bitter(
+                      textStyle: const TextStyle(
+                          fontSize: 20, fontWeight: FontWeight.bold))),
+              actions: [
+                MaterialButton(
+                    onPressed: () => {
+                          setState(() {
+                            Navigator.pushNamed(context, '/editBook',
+                                arguments: book);
+                          })
+                        },
+                    child: Text('Edit book',
+                        style: GoogleFonts.bitter(
+                            textStyle: const TextStyle(
+                                fontSize: 15, fontWeight: FontWeight.w400)))),
+                MaterialButton(
+                    onPressed: () {},
+                    child: Text('Delete book',
+                        style: GoogleFonts.bitter(
+                            textStyle: const TextStyle(
+                                fontSize: 15, fontWeight: FontWeight.w400))))
+              ]);
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     final bookProvider = Provider.of<LibraryProvider>(context);
@@ -60,18 +91,23 @@ class _LibraryPageState extends State<LibraryPage> {
                                     elevation: 15,
                                     shadowColor: Colors.black,
                                     child: ListTile(
-                                        leading: const Icon(
-                                          Icons.auto_stories_rounded,
-                                          size: 40,
-                                        ),
-                                        title: Text(snapshot.data![index].name),
-                                        trailing: Text(
-                                            '★ ${snapshot.data![index].rating}/5'),
-                                        subtitle:
-                                            Text(snapshot.data![index].genre),
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(15.5)))));
+                                      leading: const Icon(
+                                        Icons.auto_stories_rounded,
+                                        size: 40,
+                                      ),
+                                      title: Text(snapshot.data![index].name),
+                                      trailing: Text(
+                                          '★ ${snapshot.data![index].rating}/5'),
+                                      subtitle:
+                                          Text(snapshot.data![index].genre),
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(15.5)),
+                                      onLongPress: () {
+                                        _shopUpdateDeleteOptions(
+                                            snapshot.data![index]);
+                                      },
+                                    )));
                           },
                         );
                       } else {
