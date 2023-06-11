@@ -17,9 +17,11 @@ class _EditBookPageState extends State<EditBookPage> {
   Widget build(BuildContext context) {
     final bookProvider = Provider.of<LibraryProvider>(context);
     final Book book = ModalRoute.of(context)!.settings.arguments as Book;
-    final nameController = TextEditingController();
-    final genreController = TextEditingController();
-    final ratingController = TextEditingController();
+    final id = book.id;
+    final nameController = TextEditingController(text: book.name);
+    final genreController = TextEditingController(text: book.genre);
+    final ratingController =
+        TextEditingController(text: (book.rating).toString());
 
     return Scaffold(
       backgroundColor: const Color(0xff403E40),
@@ -59,8 +61,7 @@ class _EditBookPageState extends State<EditBookPage> {
             height: 10,
           ),
           TextFormField(
-            controller: null,
-            initialValue: book.name,
+            controller: nameController,
             keyboardType: TextInputType.name,
             decoration: InputDecoration(
               label: const Text('Name'),
@@ -77,7 +78,7 @@ class _EditBookPageState extends State<EditBookPage> {
           const SizedBox(height: 10),
           TextFormField(
             controller: genreController,
-            initialValue: book.genre,
+            // initialValue: book.genre,
             keyboardType: TextInputType.text,
             decoration: InputDecoration(
               label: const Text('Genre(s)'),
@@ -94,7 +95,7 @@ class _EditBookPageState extends State<EditBookPage> {
           const SizedBox(height: 10),
           TextFormField(
             controller: ratingController,
-            initialValue: (book.rating).toString(),
+            // initialValue: (book.rating).toString(),
             keyboardType: TextInputType.number,
             decoration: InputDecoration(
               label: const Text('Rating'),
@@ -116,13 +117,15 @@ class _EditBookPageState extends State<EditBookPage> {
           ElevatedButton(
               onPressed: () {
                 final book = Book(
-                    user: bookProvider.user,
-                    name: nameController.text,
-                    genre: genreController.text,
-                    rating: double.parse(ratingController.text));
+                  id: id,
+                  user: bookProvider.user,
+                  name: nameController.text,
+                  genre: genreController.text,
+                  rating: double.parse(ratingController.text),
+                );
 
                 bookProvider.editBook(book);
-                Navigator.of(context).pop();
+                Navigator.pushNamed(context, '/library');
               },
               style: ButtonStyle(
                 backgroundColor:
