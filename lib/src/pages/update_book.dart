@@ -1,30 +1,33 @@
+//import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firestone_app/src/models/library_item.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firestone_app/src/providers/book_provider.dart';
 import 'package:provider/provider.dart';
 
-class AddBookPage extends StatefulWidget {
-  const AddBookPage({super.key});
+class EditBookPage extends StatefulWidget {
+  const EditBookPage({super.key});
 
   @override
-  State<AddBookPage> createState() => _AddBookPageState();
+  State<EditBookPage> createState() => _EditBookPageState();
 }
 
-class _AddBookPageState extends State<AddBookPage> {
-  final nameController = TextEditingController();
-  final genreController = TextEditingController();
-  final ratingController = TextEditingController();
-
+class _EditBookPageState extends State<EditBookPage> {
   @override
   Widget build(BuildContext context) {
     final bookProvider = Provider.of<LibraryProvider>(context);
+    final Book book = ModalRoute.of(context)!.settings.arguments as Book;
+    final id = book.id;
+    final nameController = TextEditingController(text: book.name);
+    final genreController = TextEditingController(text: book.genre);
+    final ratingController =
+        TextEditingController(text: (book.rating).toString());
 
     return Scaffold(
       backgroundColor: const Color(0xff403E40),
       appBar: AppBar(
         title: Text(
-          'New Book',
+          'Edit Book',
           style: GoogleFonts.bitter(
               textStyle:
                   const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
@@ -48,7 +51,7 @@ class _AddBookPageState extends State<AddBookPage> {
           const SizedBox(height: 10),
           Center(
             child: Text(
-              'Tell us about the new book',
+              'Change what you need',
               style: GoogleFonts.bitter(
                   textStyle:
                       const TextStyle(color: Color(0xff8F92A6), fontSize: 15)),
@@ -57,7 +60,7 @@ class _AddBookPageState extends State<AddBookPage> {
           const SizedBox(
             height: 10,
           ),
-          TextField(
+          TextFormField(
             controller: nameController,
             keyboardType: TextInputType.name,
             decoration: InputDecoration(
@@ -73,8 +76,9 @@ class _AddBookPageState extends State<AddBookPage> {
             style: GoogleFonts.bitter(color: Colors.white),
           ),
           const SizedBox(height: 10),
-          TextField(
+          TextFormField(
             controller: genreController,
+            // initialValue: book.genre,
             keyboardType: TextInputType.text,
             decoration: InputDecoration(
               label: const Text('Genre(s)'),
@@ -89,8 +93,9 @@ class _AddBookPageState extends State<AddBookPage> {
             style: GoogleFonts.bitter(color: Colors.white),
           ),
           const SizedBox(height: 10),
-          TextField(
+          TextFormField(
             controller: ratingController,
+            // initialValue: (book.rating).toString(),
             keyboardType: TextInputType.number,
             decoration: InputDecoration(
               label: const Text('Rating'),
@@ -112,20 +117,21 @@ class _AddBookPageState extends State<AddBookPage> {
           ElevatedButton(
               onPressed: () {
                 final book = Book(
+                  id: id,
                   user: bookProvider.user,
                   name: nameController.text,
                   genre: genreController.text,
                   rating: double.parse(ratingController.text),
                 );
 
-                bookProvider.createBook(book);
-                Navigator.of(context).pop();
+                bookProvider.editBook(book);
+                Navigator.pushNamed(context, '/library');
               },
               style: ButtonStyle(
                 backgroundColor:
                     MaterialStateProperty.all(const Color(0xffBABFD9)),
               ),
-              child: Text('Add Book',
+              child: Text('Update Book',
                   style: GoogleFonts.bitter(
                       textStyle: const TextStyle(color: Color(0xff403E40))))),
         ],
