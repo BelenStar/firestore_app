@@ -13,7 +13,7 @@ class LibraryPage extends StatefulWidget {
 }
 
 class _LibraryPageState extends State<LibraryPage> {
-  _shopUpdateDeleteOptions(Book book) {
+  _shopUpdateDeleteOptions(Book book, LibraryProvider bookProvider) {
     showDialog(
         context: context,
         builder: (context) {
@@ -35,7 +35,12 @@ class _LibraryPageState extends State<LibraryPage> {
                             textStyle: const TextStyle(
                                 fontSize: 15, fontWeight: FontWeight.w400)))),
                 MaterialButton(
-                    onPressed: () {},
+                    onPressed: () => {
+                          setState(() {
+                            bookProvider.deleteBook(book);
+                            Navigator.pushNamed(context, '/library');
+                          })
+                        },
                     child: Text('Delete book',
                         style: GoogleFonts.bitter(
                             textStyle: const TextStyle(
@@ -105,7 +110,8 @@ class _LibraryPageState extends State<LibraryPage> {
                                               BorderRadius.circular(15.5)),
                                       onLongPress: () {
                                         _shopUpdateDeleteOptions(
-                                            snapshot.data![index]);
+                                            snapshot.data![index],
+                                            bookProvider);
                                       },
                                     )));
                           },
