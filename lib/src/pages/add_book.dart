@@ -112,10 +112,11 @@ class _AddBookPageState extends State<AddBookPage> {
           ElevatedButton(
               onPressed: () {
                 final book = Book(
-                    user: bookProvider.user,
-                    name: nameController.text,
-                    genre: genreController.text,
-                    rating: double.parse(ratingController.text));
+                  user: bookProvider.user,
+                  name: nameController.text,
+                  genre: genreController.text,
+                  rating: double.parse(ratingController.text),
+                );
 
                 bookProvider.createBook(book);
                 Navigator.of(context).pop();
