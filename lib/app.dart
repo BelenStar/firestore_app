@@ -7,6 +7,7 @@ import 'src/pages/add_book.dart';
 import 'src/pages/home.dart';
 import 'src/pages/library.dart';
 import 'src/pages/main_page.dart';
+import 'src/pages/profile.dart';
 import 'src/pages/sign_in.dart';
 import 'src/pages/update_book.dart';
 
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
             '/library': (context) => const LibraryPage(),
             '/addBook': (context) => const AddBookPage(),
             '/editBook': (context) => const EditBookPage(),
+            '/profile': (context) => const ProfilePage(),
           },
         ));
   }
