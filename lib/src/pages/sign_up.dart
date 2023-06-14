@@ -13,6 +13,9 @@ class _SignUpPageState extends State<SignUpPage> {
   final email = TextEditingController();
   final password = TextEditingController();
   final confirmPassword = TextEditingController();
+  final firstName = TextEditingController();
+  final lastName = TextEditingController();
+  final age = TextEditingController();
 
   Future signUp() async {
     await FirebaseAuth.instance
