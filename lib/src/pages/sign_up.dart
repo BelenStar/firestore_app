@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -10,30 +11,48 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
-  final email = TextEditingController();
-  final password = TextEditingController();
-  final confirmPassword = TextEditingController();
-  final firstName = TextEditingController();
-  final lastName = TextEditingController();
-  final age = TextEditingController();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
+  final firstNameController = TextEditingController();
+  final lastNameController = TextEditingController();
+  final ageController = TextEditingController();
 
   Future signUp() async {
-    await FirebaseAuth.instance
-        .createUserWithEmailAndPassword(
-            email: email.text, password: password.text)
-        .whenComplete(() => Navigator.of(context).pop());
+    if (passwordValidation()) {
+      await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(
+              email: emailController.text, password: passwordController.text)
+          .whenComplete(() => Navigator.of(context).pop());
+      addUserDetails(firstNameController.text, lastNameController.text,
+          emailController.text, int.parse(ageController.text));
+    }
+  }
+
+  Future addUserDetails(
+      String firstName, String lastName, String email, int age) async {
+    await FirebaseFirestore.instance.collection('users').add({
+      'first_name': firstName,
+      'last_name': lastName,
+      'email': email,
+      'age': age,
+    });
   }
 
   @override
   void dispose() {
-    email.dispose();
-    password.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+    confirmPasswordController.dispose();
+    firstNameController.dispose();
+    lastNameController.dispose();
+    ageController.dispose();
     super.dispose();
   }
 
-  void passwordValidation() {
-    if (password.text == confirmPassword.text) {
-      signUp();
+  passwordValidation() {
+    if (passwordController.text == confirmPasswordController.text) {
+      return true;
     } else {
       showDialog(
         context: context,
@@ -49,8 +68,8 @@ class _SignUpPageState extends State<SignUpPage> {
           );
         },
       );
-      password.clear();
-      confirmPassword.clear();
+      passwordController.clear();
+      confirmPasswordController.clear();
     }
   }
 
@@ -64,10 +83,10 @@ class _SignUpPageState extends State<SignUpPage> {
             child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const SizedBox(height: 10),
+            const SizedBox(height: 5),
             const Icon(Icons.menu_book_sharp,
                 size: 120, color: Color(0xffBABFD9)),
-            const SizedBox(height: 40),
+            const SizedBox(height: 10),
             Text(
               'Welcome to BookLand',
               style: GoogleFonts.bitter(
@@ -84,9 +103,73 @@ class _SignUpPageState extends State<SignUpPage> {
             const SizedBox(height: 25),
             SizedBox(
               width: 250,
+              height: 50,
               child: TextField(
                 style: const TextStyle(color: Colors.white),
-                controller: email,
+                controller: firstNameController,
+                keyboardType: TextInputType.name,
+                decoration: InputDecoration(
+                    labelText: 'First Name',
+                    //errorText: ,
+                    labelStyle:
+                        GoogleFonts.bitter(color: const Color(0xffE4EAF2)),
+                    enabledBorder: const OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(15)),
+                        borderSide: BorderSide(color: Color(0xff262526))),
+                    focusedBorder: const OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(15)),
+                        borderSide: BorderSide(color: Color(0xffE4EAF2)))),
+              ),
+            ),
+            const SizedBox(height: 15),
+            SizedBox(
+              width: 250,
+              height: 50,
+              child: TextField(
+                style: const TextStyle(color: Colors.white),
+                controller: lastNameController,
+                keyboardType: TextInputType.name,
+                decoration: InputDecoration(
+                    labelText: 'Last Name',
+                    //errorText: ,
+                    labelStyle:
+                        GoogleFonts.bitter(color: const Color(0xffE4EAF2)),
+                    enabledBorder: const OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(15)),
+                        borderSide: BorderSide(color: Color(0xff262526))),
+                    focusedBorder: const OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(15)),
+                        borderSide: BorderSide(color: Color(0xffE4EAF2)))),
+              ),
+            ),
+            const SizedBox(height: 15),
+            SizedBox(
+              width: 250,
+              height: 50,
+              child: TextField(
+                style: const TextStyle(color: Colors.white),
+                controller: ageController,
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                    labelText: 'Age',
+                    //errorText: ,
+                    labelStyle:
+                        GoogleFonts.bitter(color: const Color(0xffE4EAF2)),
+                    enabledBorder: const OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(15)),
+                        borderSide: BorderSide(color: Color(0xff262526))),
+                    focusedBorder: const OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(15)),
+                        borderSide: BorderSide(color: Color(0xffE4EAF2)))),
+              ),
+            ),
+            const SizedBox(height: 15),
+            SizedBox(
+              width: 250,
+              height: 50,
+              child: TextField(
+                style: const TextStyle(color: Colors.white),
+                controller: emailController,
                 keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(
                     labelText: 'Email',
@@ -101,12 +184,13 @@ class _SignUpPageState extends State<SignUpPage> {
                         borderSide: BorderSide(color: Color(0xffE4EAF2)))),
               ),
             ),
-            const SizedBox(height: 25),
+            const SizedBox(height: 15),
             SizedBox(
               width: 250,
+              height: 50,
               child: TextField(
                 style: const TextStyle(color: Colors.white),
-                controller: password,
+                controller: passwordController,
                 obscureText: true,
                 enableSuggestions: false,
                 autocorrect: false,
@@ -123,12 +207,13 @@ class _SignUpPageState extends State<SignUpPage> {
                 ),
               ),
             ),
-            const SizedBox(height: 25),
+            const SizedBox(height: 15),
             SizedBox(
               width: 250,
+              height: 50,
               child: TextField(
                 style: const TextStyle(color: Colors.white),
-                controller: confirmPassword,
+                controller: confirmPasswordController,
                 obscureText: true,
                 enableSuggestions: false,
                 autocorrect: false,
@@ -147,7 +232,7 @@ class _SignUpPageState extends State<SignUpPage> {
             ),
             const SizedBox(height: 20),
             ElevatedButton(
-              onPressed: passwordValidation,
+              onPressed: signUp,
               style: ButtonStyle(
                 backgroundColor:
                     MaterialStateProperty.all(const Color(0xffBABFD9)),
@@ -156,7 +241,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   style: GoogleFonts.bitter(
                       textStyle: const TextStyle(color: Color(0xff403E40)))),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 5),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
