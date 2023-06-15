@@ -10,6 +10,7 @@ import 'src/pages/main_page.dart';
 import 'src/pages/profile.dart';
 import 'src/pages/sign_in.dart';
 import 'src/pages/update_book.dart';
+import 'src/providers/user_provider.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (_) => LibraryProvider()),
+          ChangeNotifierProvider(create: (_) => UserProvider()),
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
