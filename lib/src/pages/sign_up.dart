@@ -1,7 +1,10 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+//import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firestone_app/src/models/user_item.dart';
+import 'package:firestone_app/src/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -17,26 +20,21 @@ class _SignUpPageState extends State<SignUpPage> {
   final firstNameController = TextEditingController();
   final lastNameController = TextEditingController();
   final ageController = TextEditingController();
+  var user = UserLog(firstName: "", lastName: "", email: "", age: 0);
 
-  Future signUp() async {
+  Future signUp(UserProvider userProvider) async {
+    user = UserLog(
+        firstName: firstNameController.text,
+        lastName: lastNameController.text,
+        email: emailController.text,
+        age: int.parse(ageController.text));
     if (passwordValidation()) {
       await FirebaseAuth.instance
           .createUserWithEmailAndPassword(
               email: emailController.text, password: passwordController.text)
           .whenComplete(() => Navigator.of(context).pop());
-      addUserDetails(firstNameController.text, lastNameController.text,
-          emailController.text, int.parse(ageController.text));
+      userProvider.addUserDetails(user);
     }
-  }
-
-  Future addUserDetails(
-      String firstName, String lastName, String email, int age) async {
-    await FirebaseFirestore.instance.collection('users').add({
-      'first_name': firstName,
-      'last_name': lastName,
-      'email': email,
-      'age': age,
-    });
   }
 
   @override
@@ -75,6 +73,8 @@ class _SignUpPageState extends State<SignUpPage> {
 
   @override
   Widget build(BuildContext context) {
+    final usersProvider = Provider.of<UserProvider>(context);
+
     return Scaffold(
       backgroundColor: const Color(0xff403E40),
       body: SafeArea(
@@ -232,7 +232,7 @@ class _SignUpPageState extends State<SignUpPage> {
             ),
             const SizedBox(height: 20),
             ElevatedButton(
-              onPressed: signUp,
+              onPressed: () => signUp(usersProvider),
               style: ButtonStyle(
                 backgroundColor:
                     MaterialStateProperty.all(const Color(0xffBABFD9)),

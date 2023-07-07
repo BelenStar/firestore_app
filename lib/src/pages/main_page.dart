@@ -1,5 +1,6 @@
 import 'package:firestone_app/src/pages/home.dart';
 import 'package:firestone_app/src/pages/library.dart';
+import 'package:firestone_app/src/pages/profile.dart';
 import 'package:flutter/material.dart';
 
 class MainPage extends StatefulWidget {
@@ -14,6 +15,7 @@ class _MainPage extends State<MainPage> {
   final List<Widget> _pages = [
     const HomePage(),
     const LibraryPage(),
+    const ProfilePage(),
   ];
 
   @override
