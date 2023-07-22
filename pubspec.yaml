@@ -30,8 +30,11 @@ environment:
 dependencies:
   cloud_firestore: ^4.6.0
   cupertino_icons: ^1.0.2
+  firebase_app_installations: ^0.2.3+4
   firebase_auth: ^4.5.0
   firebase_core: ^2.11.0
+  firebase_in_app_messaging: ^0.7.3+4
+  firebase_messaging: ^14.6.4
   flutter:
     sdk: flutter
   google_fonts: ^4.0.4
